@@ -26,10 +26,12 @@ public class App {
                 ticketOffice.addFlight(city, new Date(2015, 06, rnd.nextInt(30)));
             }
         }
+
         System.out.println(ticketOffice);
         Scanner in = new Scanner(System.in);
         System.out.println(ENTER_CITY_PROPOSITION);
         System.out.println(Arrays.toString(citiesList));
+
         String city = in.next();
         System.out.println(ENTER_NUMBER_OF_PASSENGERS_PROPOSITION);
         int passengers = in.nextInt();
