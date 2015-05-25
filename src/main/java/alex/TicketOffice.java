@@ -3,6 +3,8 @@ package alex;
 import java.util.*;
 
 public class TicketOffice {
+    public static final String NEW_LINE = "\n";
+    public static final String FLIGHTS_LIST = "Flights list:";
     private List<Flight> flights;
     private HashMap<String, City> destinations;
 
@@ -13,8 +15,8 @@ public class TicketOffice {
 
     public Flight getClosestFlight(String destinationName, int numberOfPassengers){
         Flight result = null;
-        City dest = destinations.get(destinationName);
-        List<Flight> acceptableFlights = dest.getFlights();
+        City destinationObject = destinations.get(destinationName);
+        List<Flight> acceptableFlights = destinationObject.getFlights();
         Collections.sort(acceptableFlights);
         for (Flight flight : acceptableFlights){
             if (flight.hasFreeSeats(numberOfPassengers)) {
@@ -30,10 +32,10 @@ public class TicketOffice {
         if (!destinations.containsKey(destinationName)){
             addDestination(destinationName);
         }
-        City destination = destinations.get(destinationName);
-        Flight newFlight = new Flight(destination, date, 10);
+        City destinationObject = destinations.get(destinationName);
+        Flight newFlight = new Flight(destinationObject, date, 10);
         flights.add(newFlight);
-        destination.addFlight(newFlight);
+        destinationObject.addFlight(newFlight);
     }
 
     public void addDestination(String name){
@@ -45,9 +47,9 @@ public class TicketOffice {
     }
 
     public String toString(){
-        String result = "Flights list: \n";
+        String result = FLIGHTS_LIST + NEW_LINE;
         for (Flight flight : flights) {
-            result += flight.toString() + "\n";
+            result += flight.toString() + NEW_LINE;
         }
 
         return result;

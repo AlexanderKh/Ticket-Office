@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class Flight implements Comparable{
+    public static final String DESTINATION = "Destination: ";
+    public static final String DATE = "Date: ";
+    public static final String SEATS = "Seats: ";
     private City destination;
     private Date date;
     private boolean[] seatsOccupied;
@@ -56,9 +59,9 @@ public class Flight implements Comparable{
     @Override
     public String toString(){
         String result = "";
-        result += "Destination: " + destination.toString() + "\n";
-        result += "Date: " + date.toString() + "\n";
-        result += "Seats: " + Arrays.toString(seatsOccupied) + "\n";
+        result += DESTINATION + destination.toString() + "\n";
+        result += DATE + date.toString() + "\n";
+        result += SEATS + Arrays.toString(seatsOccupied) + "\n";
 
         return result;
     }
