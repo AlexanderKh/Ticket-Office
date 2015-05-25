@@ -38,13 +38,8 @@ public class Flight implements Comparable{
                 freeInRow = 0;
             }
         }
-        return result;
-    }
 
-    private void occupy(int from, int to){
-        for (;from <= to; from++){
-            seatsOccupied[from] = true;
-        }
+        return result;
     }
 
     public int compareTo(Object o) {
@@ -54,6 +49,7 @@ public class Flight implements Comparable{
         }else {
             throw new ClassCastException();
         }
+
         return (int) result;
     }
 
@@ -63,6 +59,7 @@ public class Flight implements Comparable{
         result += "Destination: " + destination.toString() + "\n";
         result += "Date: " + date.toString() + "\n";
         result += "Seats: " + Arrays.toString(seatsOccupied) + "\n";
+
         return result;
     }
 }

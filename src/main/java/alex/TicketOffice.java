@@ -22,6 +22,7 @@ public class TicketOffice {
                 break;
             }
         }
+
         return result;
     }
 
@@ -48,6 +49,7 @@ public class TicketOffice {
         for (Flight flight : flights) {
             result += flight.toString() + "\n";
         }
+
         return result;
     }
 }
