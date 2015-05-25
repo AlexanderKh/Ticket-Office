@@ -9,6 +9,7 @@ public class Flight implements Comparable{
     public static final String DESTINATION = "Destination: ";
     public static final String DATE = "Date: ";
     public static final String SEATS = "Seats: ";
+    public static final String NEW_LINE = "\n";
     private City destination;
     private Date date;
     private boolean[] seatsOccupied;
@@ -52,16 +53,20 @@ public class Flight implements Comparable{
         }else {
             throw new ClassCastException();
         }
-
-        return (int) result;
+        if (result == 0)
+            return 0;
+        return (result < 0) ? -1 : 1;
     }
 
     @Override
     public String toString(){
         String result = "";
-        result += DESTINATION + destination.toString() + "\n";
-        result += DATE + date.toString() + "\n";
-        result += SEATS + Arrays.toString(seatsOccupied) + "\n";
+        result += DESTINATION + destination.toString() + NEW_LINE;
+        result += DATE + date.toString() + NEW_LINE;
+        result += SEATS;
+        for (boolean seat : seatsOccupied){
+            result += seat ? 1 : 0;
+        }
 
         return result;
     }

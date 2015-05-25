@@ -15,7 +15,7 @@ public class TicketOffice {
 
     public Flight getClosestFlight(String destinationName, int numberOfPassengers){
         Flight result = null;
-        City destinationObject = destinations.get(destinationName);
+        City destinationObject = destinations.get(destinationName.toLowerCase());
         List<Flight> acceptableFlights = destinationObject.getFlights();
         Collections.sort(acceptableFlights);
         for (Flight flight : acceptableFlights){
@@ -29,17 +29,17 @@ public class TicketOffice {
     }
 
     public void addFlight(String destinationName, Date date){
-        if (!destinations.containsKey(destinationName)){
+        if (!destinations.containsKey(destinationName.toLowerCase())){
             addDestination(destinationName);
         }
-        City destinationObject = destinations.get(destinationName);
+        City destinationObject = destinations.get(destinationName.toLowerCase());
         Flight newFlight = new Flight(destinationObject, date, 10);
         flights.add(newFlight);
         destinationObject.addFlight(newFlight);
     }
 
     public void addDestination(String name){
-        destinations.put(name, new City(name));
+        destinations.put(name.toLowerCase(), new City(name));
     }
 
     public Set<String> getDestinations(){

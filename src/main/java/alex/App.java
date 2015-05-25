@@ -29,17 +29,20 @@ public class App {
 
         System.out.println(ticketOffice);
         Scanner in = new Scanner(System.in);
-        System.out.println(ENTER_CITY_PROPOSITION);
-        System.out.println(Arrays.toString(citiesList));
 
-        String city = in.next();
-        System.out.println(ENTER_NUMBER_OF_PASSENGERS_PROPOSITION);
-        int passengers = in.nextInt();
-        Flight flight = ticketOffice.getClosestFlight(city, passengers);
-        if (flight != null){
-            System.out.println(flight);
-        } else {
-            System.out.println(NO_ACCEPTABLE_FLIGHTS_FOUND);
+        while (true) {
+            System.out.println(ENTER_CITY_PROPOSITION);
+            System.out.println(Arrays.toString(citiesList));
+
+            String city = in.next();
+            System.out.println(ENTER_NUMBER_OF_PASSENGERS_PROPOSITION);
+            int passengers = in.nextInt();
+            Flight flight = ticketOffice.getClosestFlight(city, passengers);
+            if (flight != null) {
+                System.out.println(flight);
+            } else {
+                System.out.println(NO_ACCEPTABLE_FLIGHTS_FOUND);
+            }
         }
     }
 }
