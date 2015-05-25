@@ -20,7 +20,6 @@ public class App {
             for (String city : citiesList) {
                 airport.addFlight(city, new Date(2015, 06, rnd.nextInt(30)));
                 airport.addFlight(city, new Date(2015, 06, rnd.nextInt(30)));
-                airport.addFlight(city, new Date(2015, 06, rnd.nextInt(30)));
             }
 
         System.out.println(airport.printFlights());

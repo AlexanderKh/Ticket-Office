@@ -58,17 +58,10 @@ public class Flight implements Comparable{
         String result = "";
         result += DESTINATION + destination.toString() + NEW_LINE;
         result += DATE + date.toString() + NEW_LINE;
-        result += SEATS + NEW_LINE;
-        for (int i = 0; i < seats.length * 2 + 1; i++) {
-            result += "-";
-        }
+        result += SEATS;
         result += NEW_LINE + "-";
         for (Seat seat : seats){
             result += (seat.isOccupied() ? "O" : "F") + "-";
-        }
-        result += NEW_LINE;
-        for (int i = 0; i < seats.length * 2 + 1; i++) {
-            result += "-";
         }
         result += NEW_LINE + NEW_LINE;
 
