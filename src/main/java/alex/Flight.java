@@ -7,7 +7,6 @@ import java.util.Random;
 public class Flight implements Comparable{
     private City destination;
     private Date date;
-
     private Seat[] seats;
 
     Flight(City destination, Date date, int maxSeats){
@@ -38,15 +37,11 @@ public class Flight implements Comparable{
     }
 
     public int compareTo(Object o) {
-        long result;
         if (o instanceof Flight){
-            result = this.date.getTime() - ((Flight) o).date.getTime();
+            return this.date.compareTo(((Flight) o).date);
         }else {
             throw new ClassCastException();
         }
-        if (result == 0)
-            return 0;
-        return (result < 0) ? -1 : 1;
     }
 
     public Seat[] getSeats() {
@@ -63,9 +58,17 @@ public class Flight implements Comparable{
         String result = "";
         result += DESTINATION + destination.toString() + NEW_LINE;
         result += DATE + date.toString() + NEW_LINE;
-        result += SEATS;
+        result += SEATS + NEW_LINE;
+        for (int i = 0; i < seats.length * 2 + 1; i++) {
+            result += "-";
+        }
+        result += NEW_LINE + "-";
         for (Seat seat : seats){
-            result += seat.isOccupied() ? 1 : 0;
+            result += (seat.isOccupied() ? "O" : "F") + "-";
+        }
+        result += NEW_LINE;
+        for (int i = 0; i < seats.length * 2 + 1; i++) {
+            result += "-";
         }
         result += NEW_LINE + NEW_LINE;
 

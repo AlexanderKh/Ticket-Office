@@ -17,4 +17,19 @@ public class TicketOffice {
 
         return result;
     }
+
+    public Seat reserveSeat(Flight flight, int place){
+        Seat result;
+        Seat[] seats = flight.getSeats();
+        result = seats[place];
+        if (result.isOccupied())
+            return null;
+        result.setIsOccupied(true);
+
+        return result;
+    }
+
+    public boolean ReserveFlight(Flight flight, int place){
+        return true;
+    }
 }
