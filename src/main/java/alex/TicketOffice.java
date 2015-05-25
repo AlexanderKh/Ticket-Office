@@ -18,18 +18,13 @@ public class TicketOffice {
         return result;
     }
 
-    public Seat reserveSeat(Flight flight, int place){
-        Seat result;
+    public Seat buyTicket(Flight flight, int place){
         Seat[] seats = flight.getSeats();
-        result = seats[place];
-        if (result.isOccupied())
+        Seat seat = seats[place - 1];
+        if (seat.isOccupied())
             return null;
-        result.setIsOccupied(true);
-
-        return result;
+        seat.setIsOccupied(true);
+        return seat;
     }
 
-    public boolean ReserveFlight(Flight flight, int place){
-        return true;
-    }
 }

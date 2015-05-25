@@ -33,4 +33,9 @@ public class Seat {
     public void setPlace(int place) {
         this.place = place;
     }
+
+    @Override
+    public String toString(){
+        return String.valueOf(place);
+    }
 }
