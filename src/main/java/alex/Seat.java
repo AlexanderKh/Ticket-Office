@@ -1,41 +1,28 @@
 package alex;
 
 public class Seat {
-    private boolean isOccupied;
+    private boolean occupied;
     private Flight flight;
-    private int place;
+    private int placeInRow;
+    private Row row;
 
-    Seat(Flight flight, int place){
+    Seat(Flight flight, Row row, int placeInRow){
         this.flight = flight;
-        this.place = place;
+        this.placeInRow = placeInRow;
+        this.row = row;
     }
 
     public boolean isOccupied() {
-        return isOccupied;
+        return occupied;
     }
 
-    public void setIsOccupied(boolean isOccupied) {
-        this.isOccupied = isOccupied;
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    public int getPlace() {
-        return place;
-    }
-
-    public void setPlace(int place) {
-        this.place = place;
-    }
 
     @Override
     public String toString(){
-        return String.valueOf(place);
+        return String.valueOf(placeInRow);
     }
 }

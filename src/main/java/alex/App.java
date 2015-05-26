@@ -49,8 +49,12 @@ public class App {
                     break;
                 case (3):
                     System.out.println(flight);
+                    int rowNumber, seatNumber;
+                    System.out.println("Enter row to buy: ");
+                    rowNumber = in.nextInt();
                     System.out.println("Enter place to buy: ");
-                    Seat seat = ticketOffice.buyTicket(flight, in.nextInt());
+                    seatNumber = in.nextInt();
+                    Seat seat = ticketOffice.buyTicket(flight, rowNumber, seatNumber);
                     if (seat == null)
                         System.out.println("Seat is already taken");
                     else

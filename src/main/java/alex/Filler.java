@@ -4,10 +4,12 @@ package alex;
 import java.util.Random;
 
 public class Filler {
-    public static void fillSeats(Seat[] seats){
+    public static void fillSeats(Flight flight){
         Random rnd = new Random();
-        for (Seat seat : seats){
-            seat.setIsOccupied(rnd.nextBoolean());
+        for (Row row : flight.getRows()){
+            for (Seat seat : row.getSeats()){
+                seat.setOccupied(rnd.nextBoolean());
+            }
         }
     }
 

@@ -14,8 +14,8 @@ public class Airport {
             addDestination(destinationName);
         }
         City destinationObject = getCity(destinationName);
-        Flight newFlight = new Flight(destinationObject, date, 20);
-        Filler.fillSeats(newFlight.getSeats());
+        Flight newFlight = new Flight(destinationObject, date, 3, 6);
+        Filler.fillSeats(newFlight);
         flights.add(newFlight);
         destinationObject.addFlight(newFlight);
     }

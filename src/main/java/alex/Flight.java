@@ -5,36 +5,34 @@ import java.util.Date;
 import java.util.Random;
 
 public class Flight implements Comparable{
+    public static final String NEW_LINE = "\n";
+    private int id;
     private City destination;
     private Date date;
-    private Seat[] seats;
+    private Row[] rows;
+    private int maxRows;
+    private int maxSeatsInRow;
 
-    Flight(City destination, Date date, int maxSeats){
+    Flight(City destination, Date date, int maxRows, int maxSeatsInRow){
+        this.maxSeatsInRow = maxSeatsInRow;
+        this.maxRows = maxRows;
         this.destination = destination;
         this.date = date;
-        seats = new Seat[maxSeats];
-        for (int i = 0; i < maxSeats; i++) {
-            seats[i] = new Seat(this, i + 1);
+        this.rows = new Row[maxRows];
+        for (int i = 0; i < maxRows; i++) {
+            rows[i] = new Row(this, i + 1);
         }
     }
 
-    public boolean hasFreeSeatsInRow(int quantity){
-        boolean result = false;
-        int freeInRow = 0;
-        for (Seat seat : seats){
-            if (freeInRow == quantity){
-                result = true;
-                break;
-            }
-            if (!seat.isOccupied()){
-                freeInRow++;
-            } else {
-                freeInRow = 0;
-            }
-        }
 
+    public boolean hasFreeSeatsInRow(int numberOfPassengers){
+        boolean result = false;
+        for (Row row : rows){
+            result = row.hasFreeSeatsInRow(numberOfPassengers);
+        }
         return result;
     }
+
 
     public int compareTo(Object o) {
         if (o instanceof Flight){
@@ -44,31 +42,32 @@ public class Flight implements Comparable{
         }
     }
 
-    public Seat[] getSeats() {
-        return seats;
+    public int getMaxSeatsInRow() {
+        return maxSeatsInRow;
     }
 
-    private static final String DESTINATION = "Destination: ";
-    private static final String DATE = "Date: ";
-    private static final String SEATS = "Seats: ";
-    private static final String NEW_LINE = "\n";
+    public int getMaxRows() {
+        return maxRows;
+    }
 
-    @Override
+    public Row[] getRows() {
+        return rows;
+    }
+
+    public Row getRow(int rowNumber) {
+        return rows[rowNumber - 1];
+    }
+
     public String toString(){
-        String result = "";
-        result += DESTINATION + destination.toString() + NEW_LINE;
-        result += DATE + date.toString() + NEW_LINE;
-        result += SEATS;
-        result += NEW_LINE;
-        for (int i = 1; i <= seats.length; i++) {
-            result += i + "\t";
+        String result = "Destination: ";
+        result += destination.toString() + NEW_LINE;
+        result += "Date: ";
+        result += date.toString() + NEW_LINE;
+        result += "Rows" + NEW_LINE;
+        for (Row row : rows){
+            result += row.toString() + NEW_LINE;
         }
         result += NEW_LINE;
-        for (Seat seat : seats){
-            result += (seat.isOccupied() ? "O" : "F") + "\t";
-        }
-        result += NEW_LINE + NEW_LINE;
-
         return result;
     }
 }
