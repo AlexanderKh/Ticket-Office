@@ -1,3 +1,4 @@
+import dao.FlightDAO;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
@@ -48,5 +49,6 @@ public class Main {
             session.close();
             ourSessionFactory.close();
         }
+        new FlightDAO().hello();
     }
 }
