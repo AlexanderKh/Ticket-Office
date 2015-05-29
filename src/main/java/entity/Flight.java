@@ -13,6 +13,8 @@ public class Flight {
     private Date date;
     @OneToMany
     private List<Seat> seats;
+    @ManyToOne
+    private Plane plane;
 
     public int getId() {
         return id;
@@ -44,6 +46,14 @@ public class Flight {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public void setPlane(Plane plane) {
+        this.plane = plane;
     }
 
     @Override

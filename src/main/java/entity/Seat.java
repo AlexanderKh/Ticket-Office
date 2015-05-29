@@ -5,11 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Seat {
+public class Seat implements Comparable {
     @Id
     private int id;
     private boolean occupied;
-    private int row;
     private int place;
     @ManyToOne
     private Flight flight;
@@ -30,14 +29,6 @@ public class Seat {
         this.occupied = occupied;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     public int getPlace() {
         return place;
     }
@@ -52,5 +43,18 @@ public class Seat {
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    public int compareTo(Object o) {
+        if (o instanceof Seat){
+            return this.place - ((Seat) o).place;
+        } else {
+            throw new ClassCastException();
+        }
+    }
+
+    @Override
+    public String toString(){
+        return flight + "\n" + place + " " + occupied;
     }
 }

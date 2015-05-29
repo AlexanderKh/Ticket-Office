@@ -11,8 +11,9 @@
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
 
-        <mapping class="entity.Flight" />
+        <mapping class="entity.Flight"/>
         <mapping class="entity.City"/>
         <mapping class="entity.Seat"/>
+        <mapping class="entity.Plane"/>
     </session-factory>
 </hibernate-configuration>
