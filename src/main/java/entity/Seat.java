@@ -55,6 +55,6 @@ public class Seat implements Comparable {
 
     @Override
     public String toString(){
-        return flight + "\n" + place + " " + occupied;
+        return occupied ? "O" : "_";
     }
 }

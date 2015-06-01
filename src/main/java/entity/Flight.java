@@ -58,6 +58,15 @@ public class Flight {
 
     @Override
     public String toString(){
-        return id + " " + destination.toString() + " " + date.toString();
+        String result = id + " " + destination.toString() + " " + date.toString() + "\n";
+        for (int i = 1; i <= seats.size(); i++) {
+            result += i;
+        }
+        result += "\n";
+        for (Seat seat : seats){
+            result += seat;
+        }
+        result += "\n";
+        return result;
     }
 }

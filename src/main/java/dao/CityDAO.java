@@ -18,4 +18,8 @@ public class CityDAO extends HibernateDaoSupport {
     public List<City> getCities(){
         return getSessionFactory().getCurrentSession().createCriteria(City.class).list();
     }
+
+    public City getCity(int i) {
+        return (City) sessionFactory.getCurrentSession().get(City.class, i);
+    }
 }

@@ -37,7 +37,10 @@
        </bean>
 
        <bean id="MainClass" class="Service">
+              <property name="flightDAO" ref="FlightDAO"/>
               <property name="cityDAO" ref="CityDAO" />
+              <property name="planeDAO" ref="PlaneDAO" />
+              <property name="seatDAO" ref="SeatDAO"/>
        </bean>
 
 </beans>
