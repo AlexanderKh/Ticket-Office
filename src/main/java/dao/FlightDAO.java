@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FlightDAO extends HibernateDaoSupport {
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public void hello(){
         System.out.println(sessionFactory);

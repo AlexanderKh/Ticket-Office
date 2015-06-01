@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+              <property name="configLocation" value="hibernate.cfg.xml"/>
+       </bean>
+
+       <tx:annotation-driven transaction-manager="txManager" />
+
+       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+              <property name="driverClassName" value="org.h2.Driver" />
+              <property name="url" value="jdbc:h2:file:C:/Users/Admin4ik/Desktop/Ticket-Office/TicketOffice" />
+       </bean>
+
+       <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+              <property name="sessionFactory" ref="sessionFactory" />
+              <property name="dataSource" ref="dataSource"/>
+       </bean>
+
+       <bean id="CityDAO" class="dao.CityDAO">
+              <property name="sessionFactory" ref="sessionFactory" />
+       </bean>
+
+       <bean id="FlightDAO" class="dao.FlightDAO">
+              <property name="sessionFactory" ref="sessionFactory" />
+       </bean>
+
+       <bean id="PlaneDAO" class="dao.PlaneDAO">
+              <property name="sessionFactory" ref="sessionFactory" />
+       </bean>
+
+       <bean id="SeatDAO" class="dao.SeatDAO">
+              <property name="sessionFactory" ref="sessionFactory" />
+       </bean>
+
+       <bean id="MainClass" class="Programme">
+              <property name="cityDAO" ref="CityDAO" />
+       </bean>
 
 </beans>
