@@ -36,7 +36,7 @@
               <property name="sessionFactory" ref="sessionFactory" />
        </bean>
 
-       <bean id="MainClass" class="Programme">
+       <bean id="MainClass" class="Service">
               <property name="cityDAO" ref="CityDAO" />
        </bean>
 

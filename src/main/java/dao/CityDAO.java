@@ -11,9 +11,10 @@ import java.util.List;
 
 @Repository
 public class CityDAO extends HibernateDaoSupport {
-@Autowired
+    @Autowired
     private SessionFactory sessionFactory;
-@Transactional
+
+    @Transactional
     public List<City> getCities(){
         return getSessionFactory().getCurrentSession().createCriteria(City.class).list();
     }
