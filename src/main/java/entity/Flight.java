@@ -1,6 +1,7 @@
 package entity;
 
 import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 
 import javax.persistence.*;
@@ -8,14 +9,14 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-public class Flight {
+public class Flight implements Comparable{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     @ManyToOne
     private City destination;
     private Date date;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private List<Seat> seats;
     @ManyToOne
     private Plane plane;
@@ -62,15 +63,14 @@ public class Flight {
 
     @Override
     public String toString(){
-        String result = id + " " + destination.toString() + " " + date.toString() + "\n";
-        for (int i = 1; i <= getSeats().size(); i++) {
-            result += i;
-        }
-        result += "\n";
-        for (Seat seat : getSeats()){
-            result += seat;
-        }
-        result += "\n";
+        String result = id + " " + destination.toString() + " " + date.toString();
         return result;
+    }
+
+    public int compareTo(Object o) {
+        if (o instanceof Flight){
+            return this.date.compareTo(((Flight) o).date);
+        }else
+            throw new ClassCastException();
     }
 }

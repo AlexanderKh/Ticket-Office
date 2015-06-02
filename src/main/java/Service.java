@@ -9,10 +9,7 @@ import entity.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Service {
     @Autowired
@@ -36,7 +33,12 @@ public class Service {
         System.out.println(flights.size());
         for (Flight flight : flights){
             System.out.println(flight.toString());
+            for (Seat seat : seatDAO.getSeats(flight)){
+                System.out.print(seat);
+            }
+            System.out.println();
         }
+
     }
 
     public void showAllCities(){
@@ -111,7 +113,9 @@ public class Service {
     public void reserveSeat() {
         Flight flight = selectFlight();
         System.out.println("Enter seat no to reserve");
-        flight.getSeats().get(in.nextInt() - 1).setOccupied(true);
+        Seat seat = seatDAO.getSeat(flight, in.nextInt());
+        seat.setOccupied(true);
+        seatDAO.update(seat);
     }
 
     private Flight selectFlight() {
@@ -124,7 +128,25 @@ public class Service {
     }
 
     public void task() {
-
+        int quantity = in.nextInt();
+        List<Flight> flights = flightDAO.getFlights();
+        Flight acceptable = null;
+        fl: for (Flight flight : flights){
+            List<Seat> seats = seatDAO.getSeats(flight);
+            int freeInRow = 0;
+            for (Seat seat : seats){
+                if (freeInRow == quantity){
+                    acceptable = flight;
+                    break fl;
+                }
+                if (!seat.isOccupied()){
+                    freeInRow++;
+                } else {
+                    freeInRow = 0;
+                }
+            }
+        }
+        System.out.println(acceptable);
     }
 
 
