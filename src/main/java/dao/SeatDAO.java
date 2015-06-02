@@ -31,5 +31,10 @@ public class SeatDAO extends HibernateDaoSupport {
     public void update(Seat seat) {
         getSessionFactory().getCurrentSession().update(seat);
     }
+
+    @Transactional
+    public List<Seat> ask(String s) {
+        return getSessionFactory().getCurrentSession().createSQLQuery(s).list();
+    }
 }
 

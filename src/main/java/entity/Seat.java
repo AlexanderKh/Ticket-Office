@@ -12,6 +12,16 @@ public class Seat implements Comparable {
     @ManyToOne
     private Flight flight;
 
+    public Seat(){
+
+    }
+    public Seat(int id, int place, boolean occupied, Flight flight){
+        this.id = id;
+        this.place = place;
+        this.occupied = occupied;
+        this.flight = flight;
+    }
+
     public int getId() {
         return id;
     }

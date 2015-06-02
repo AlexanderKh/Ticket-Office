@@ -128,22 +128,22 @@ public class Service {
     }
 
     public void task() {
-        int quantity = in.nextInt();
         List<Flight> flights = flightDAO.getFlights();
         Flight acceptable = null;
         fl: for (Flight flight : flights){
-            List<Seat> seats = seatDAO.getSeats(flight);
-            int freeInRow = 0;
+            List<Seat> seats = new ArrayList();
+            seats.add(new Seat(-1, 1, false, flight));
+            seats.addAll(seatDAO.ask("select PLACE, IDS.ID, IDS.FLIGHT_ID, IDS.OCCUPIED from ((\n" +
+                    "  (( SELECT s1.ID, s1.FLIGHT_ID, s1.PLACE, s1.OCCUPIED from SEAT s2, SEAT s1 WHERE s1.OCCUPIED = FALSE and s1.ID = s2.ID-1 and s2.OCCUPIED = TRUE ))\n" +
+                    "union\n" +
+                    " ((SELECT s1.ID, s1.FLIGHT_ID, s1.PLACE, s1.OCCUPIED from SEAT s1, SEAT s2 WHERE s1.OCCUPIED = FALSE and s1.ID-1 = s2.ID and s2.OCCUPIED = TRUE))\n" +
+                    ")\n" +
+                    "ORDER BY ID) AS IDS\n" +
+                    "INNER JOIN FLIGHT ON IDS.FLIGHT_ID = FLIGHT.ID WHERE FLIGHT_ID = " + flight.getId() + "\n" +
+                    "ORDER BY DATE, PLACE"));
+            seats.add(new Seat(Integer.MAX_VALUE, flight.getPlane().getPlaces(), false, flight));
             for (Seat seat : seats){
-                if (freeInRow == quantity){
-                    acceptable = flight;
-                    break fl;
-                }
-                if (!seat.isOccupied()){
-                    freeInRow++;
-                } else {
-                    freeInRow = 0;
-                }
+                System.out.println(seat);
             }
         }
         System.out.println(acceptable);
