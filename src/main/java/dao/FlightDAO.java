@@ -20,6 +20,7 @@ public class FlightDAO extends HibernateDaoSupport {
         getSessionFactory().getCurrentSession().save(flight);
     }
 
+    @Transactional
     public Flight getFlight(int i) {
         return (Flight) getSessionFactory().getCurrentSession().get(Flight.class, i);
     }

@@ -1,5 +1,8 @@
 package entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -12,7 +15,7 @@ public class Flight {
     @ManyToOne
     private City destination;
     private Date date;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Seat> seats;
     @ManyToOne
     private Plane plane;
@@ -60,11 +63,11 @@ public class Flight {
     @Override
     public String toString(){
         String result = id + " " + destination.toString() + " " + date.toString() + "\n";
-        for (int i = 1; i <= seats.size(); i++) {
+        for (int i = 1; i <= getSeats().size(); i++) {
             result += i;
         }
         result += "\n";
-        for (Seat seat : seats){
+        for (Seat seat : getSeats()){
             result += seat;
         }
         result += "\n";

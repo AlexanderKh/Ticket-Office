@@ -1,13 +1,12 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Plane {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String model;
     private int places;
