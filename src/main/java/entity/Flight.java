@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Flight {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     @ManyToOne
     private City destination;

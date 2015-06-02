@@ -1,12 +1,11 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Seat implements Comparable {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private boolean occupied;
     private int place;

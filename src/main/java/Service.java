@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-@org.springframework.stereotype.Service
 public class Service {
     @Autowired
     private CityDAO cityDAO;
@@ -60,13 +59,13 @@ public class Service {
         date.setDate(in.nextInt());
         flight.setDate(date);
 
-        generateSeats(flight);
-        randomizeSeats(flight.getSeats());
-
         System.out.println("Select destination: ");
         flight.setDestination(selectDestination());
 
         flightDAO.addNewFlight(flight);
+
+        generateSeats(flight);
+        randomizeSeats(flight.getSeats());
     }
 
     private City selectDestination() {
@@ -97,6 +96,7 @@ public class Service {
             seat.setPlace(i);
             seat.setOccupied(false);
             seats.add(seat);
+            seatDAO.addNewSeat(seat);
         }
         flight.setSeats(seats);
     }
