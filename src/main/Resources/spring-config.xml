@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-              <property name="configLocation" value="hibernate.cfg.xml"/>
-       </bean>
-
-       <tx:annotation-driven transaction-manager="txManager" />
+       <context:annotation-config />
+       <tx:annotation-driven />
 
        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-              <property name="driverClassName" value="org.h2.Driver" />
-              <property name="url" value="jdbc:h2:file:C:/Users/Admin4ik/Desktop/Ticket-Office/TicketOffice" />
+              <property name="driverClassName" value="org.h2.Driver"/>
+              <property name="url" value="jdbc:h2:file:/home/employee/Documents/Ticket-Office/TicketOffice"/>
+              <property name="username" value=""/>
+              <property name="password" value=""/>
        </bean>
 
-       <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-              <property name="sessionFactory" ref="sessionFactory" />
+       <bean id="sessionFactory"
+             class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+              <property name="configLocation" value="hibernate.cfg.xml"/>
               <property name="dataSource" ref="dataSource"/>
        </bean>
 
+       <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+              <property name="sessionFactory" ref="sessionFactory"></property>
+       </bean>
+
        <bean id="CityDAO" class="dao.CityDAO">
-              <property name="sessionFactory" ref="sessionFactory" />
+              <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
        <bean id="FlightDAO" class="dao.FlightDAO">
-              <property name="sessionFactory" ref="sessionFactory" />
+              <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
        <bean id="PlaneDAO" class="dao.PlaneDAO">
-              <property name="sessionFactory" ref="sessionFactory" />
+              <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
        <bean id="SeatDAO" class="dao.SeatDAO">
-              <property name="sessionFactory" ref="sessionFactory" />
+              <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
-       <bean id="MainClass" class="Service">
+       <bean id="Service" class="Service">
+              <property name="cityDAO" ref="CityDAO"/>
+              <property name="planeDAO" ref="PlaneDAO"/>
               <property name="flightDAO" ref="FlightDAO"/>
-              <property name="cityDAO" ref="CityDAO" />
-              <property name="planeDAO" ref="PlaneDAO" />
               <property name="seatDAO" ref="SeatDAO"/>
        </bean>
+
 
 </beans>

@@ -1,4 +1,3 @@
-import entity.Flight;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Scanner;
@@ -9,7 +8,8 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
 
-        service = (Service) ctx.getBean("MainClass");
+        service = (Service) ctx.getBean("Service");
+        service.showAllCities();
         int ans;
         Scanner in = new Scanner(System.in);
         while (true){

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-
+@org.springframework.stereotype.Service
 public class Service {
     @Autowired
     private CityDAO cityDAO;
@@ -34,19 +34,30 @@ public class Service {
 
     public void showAllFlights() {
         List<Flight> flights = flightDAO.getFlights();
+        System.out.println(flights.size());
         for (Flight flight : flights){
-            System.out.println(flight);
+            System.out.println(flight.toString());
+        }
+    }
+
+    public void showAllCities(){
+        List<City> cities = cityDAO.getCities();
+        for (City city : cities){
+            System.out.println(city);
         }
     }
 
     public void addNewFlight() {
         Flight flight = new Flight();
 
-        System.out.println("Select Plane: ");
+        System.out.println("Select entity.Plane: ");
         flight.setPlane(selectPlane());
 
         System.out.println("Enter date: ");
-        Date date = new Date(java.util.Date.parse(in.next()));
+        Date date = new Date(0);
+        date.setYear(in.nextInt());
+        date.setMonth(in.nextInt());
+        date.setDate(in.nextInt());
         flight.setDate(date);
 
         generateSeats(flight);
@@ -69,6 +80,7 @@ public class Service {
 
     private Plane selectPlane() {
         System.out.println("List of available planes");
+        System.out.println(planeDAO.getPlanes());
         for (Plane plane : planeDAO.getPlanes()){
             System.out.println(plane);
         }

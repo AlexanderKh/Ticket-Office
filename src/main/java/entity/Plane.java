@@ -48,6 +48,6 @@ public class Plane {
 
     @Override
     public String toString(){
-        return id + model + " " + places;
+        return id + " " + model + " " + places;
     }
 }
