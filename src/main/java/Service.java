@@ -128,10 +128,11 @@ public class Service {
     }
 
     public void task() {
-        int needInRow = 4;
+        System.out.println("Enter places to find: ");
+        int needInRow = in.nextInt();
         List<Flight> flights = flightDAO.getFlights();
         Flight acceptable = null;
-        for (Flight flight : flights){
+        b: for (Flight flight : flights){
             List<Seat> seats = new ArrayList<Seat>();
             seats.add(new Seat(-1, 1, false, flight));
             seats.addAll(seatDAO.ask("select PLACE, IDS.ID, IDS.FLIGHT_ID, IDS.OCCUPIED from ((\n" +
@@ -148,6 +149,7 @@ public class Service {
                 Seat next = iterator.next();
                 if (next.getPlace() - prev.getPlace() >= needInRow){
                     acceptable = flight;
+                    break b;
                 }
             }
         }
