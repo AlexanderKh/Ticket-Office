@@ -25,7 +25,7 @@ public class Main {
                     service.reserveSeat();
                     break;
                 case 4:
-                    service.task();
+                    service.getClosestFlight();
                     break;
             }
         }
@@ -35,7 +35,7 @@ public class Main {
         System.out.println("1 - show all flights");
         System.out.println("2 - add new flight");
         System.out.println("3 - reserve seat");
-        System.out.println("4 - task");
+        System.out.println("4 - getClosestFlight");
     }
 
 

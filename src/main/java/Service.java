@@ -1,7 +1,7 @@
-import dao.CityDAO;
-import dao.FlightDAO;
-import dao.PlaneDAO;
-import dao.SeatDAO;
+import dao.CityDAOImpl;
+import dao.FlightDAOImpl;
+import dao.PlaneDAOImpl;
+import dao.SeatDAOImpl;
 import entity.City;
 import entity.Flight;
 import entity.Plane;
@@ -13,13 +13,13 @@ import java.util.*;
 
 public class Service {
     @Autowired
-    private CityDAO cityDAO;
+    private CityDAOImpl cityDAO;
     @Autowired
-    private FlightDAO flightDAO;
+    private FlightDAOImpl flightDAO;
     @Autowired
-    private PlaneDAO planeDAO;
+    private PlaneDAOImpl planeDAO;
     @Autowired
-    private SeatDAO seatDAO;
+    private SeatDAOImpl seatDAO;
 
     private Scanner in;
 
@@ -115,7 +115,7 @@ public class Service {
         System.out.println("Enter seat no to reserve");
         Seat seat = seatDAO.getSeat(flight, in.nextInt());
         seat.setOccupied(true);
-        seatDAO.update(seat);
+        seatDAO.updateSeat(seat);
     }
 
     private Flight selectFlight() {
@@ -127,7 +127,7 @@ public class Service {
         return flightDAO.getFlight(in.nextInt());
     }
 
-    public void task() {
+    public Flight getClosestFlightWithFreePlaces(int placesToFind) {
         System.out.println("Enter places to find: ");
         int needInRow = in.nextInt();
         List<Flight> flights = flightDAO.getFlights();
@@ -135,14 +135,7 @@ public class Service {
         b: for (Flight flight : flights){
             List<Seat> seats = new ArrayList<Seat>();
             seats.add(new Seat(-1, 1, false, flight));
-            seats.addAll(seatDAO.ask("select PLACE, IDS.ID, IDS.FLIGHT_ID, IDS.OCCUPIED from ((\n" +
-                    "  (( SELECT s1.ID, s1.FLIGHT_ID, s1.PLACE, s1.OCCUPIED from SEAT s2, SEAT s1 WHERE s1.OCCUPIED = FALSE and s1.ID = s2.ID-1 and s2.OCCUPIED = TRUE ))\n" +
-                    "union\n" +
-                    " ((SELECT s1.ID, s1.FLIGHT_ID, s1.PLACE, s1.OCCUPIED from SEAT s1, SEAT s2 WHERE s1.OCCUPIED = FALSE and s1.ID-1 = s2.ID and s2.OCCUPIED = TRUE))\n" +
-                    ")\n" +
-                    "ORDER BY ID) AS IDS\n" +
-                    "INNER JOIN FLIGHT ON IDS.FLIGHT_ID = FLIGHT.ID WHERE FLIGHT_ID = " + flight.getId() + "\n" +
-                    "ORDER BY DATE, PLACE"));
+            seats.addAll(seatDAO.getIndexesOfFreePlaces(flight));
             seats.add(new Seat(Integer.MAX_VALUE, flight.getPlane().getPlaces(), false, flight));
             for (Iterator<Seat> iterator = seats.iterator(); iterator.hasNext(); ){
                 Seat prev = iterator.next();
@@ -157,19 +150,19 @@ public class Service {
     }
 
 
-    public void setCityDAO(CityDAO cityDAO) {
+    public void setCityDAO(CityDAOImpl cityDAO) {
         this.cityDAO = cityDAO;
     }
 
-    public void setFlightDAO(FlightDAO flightDAO) {
+    public void setFlightDAO(FlightDAOImpl flightDAO) {
         this.flightDAO = flightDAO;
     }
 
-    public void setPlaneDAO(PlaneDAO planeDAO) {
+    public void setPlaneDAO(PlaneDAOImpl planeDAO) {
         this.planeDAO = planeDAO;
     }
 
-    public void setSeatDAO(SeatDAO seatDAO) {
+    public void setSeatDAO(SeatDAOImpl seatDAO) {
         this.seatDAO = seatDAO;
     }
 }

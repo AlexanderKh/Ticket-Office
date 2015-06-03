@@ -24,19 +24,19 @@
               <property name="sessionFactory" ref="sessionFactory"></property>
        </bean>
 
-       <bean id="CityDAO" class="dao.CityDAO">
+       <bean id="CityDAO" class="dao.CityDAOImpl">
               <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
-       <bean id="FlightDAO" class="dao.FlightDAO">
+       <bean id="FlightDAO" class="dao.FlightDAOImpl">
               <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
-       <bean id="PlaneDAO" class="dao.PlaneDAO">
+       <bean id="PlaneDAO" class="dao.PlaneDAOImpl">
               <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
-       <bean id="SeatDAO" class="dao.SeatDAO">
+       <bean id="SeatDAO" class="dao.SeatDAOImpl">
               <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
