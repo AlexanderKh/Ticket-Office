@@ -9,7 +9,6 @@ public class Main {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
 
         service = (Service) ctx.getBean("Service");
-        service.showAllCities();
         int ans;
         Scanner in = new Scanner(System.in);
         while (true){
