@@ -128,10 +128,11 @@ public class Service {
     }
 
     public void task() {
+        int needInRow = 4;
         List<Flight> flights = flightDAO.getFlights();
         Flight acceptable = null;
-        fl: for (Flight flight : flights){
-            List<Seat> seats = new ArrayList();
+        for (Flight flight : flights){
+            List<Seat> seats = new ArrayList<Seat>();
             seats.add(new Seat(-1, 1, false, flight));
             seats.addAll(seatDAO.ask("select PLACE, IDS.ID, IDS.FLIGHT_ID, IDS.OCCUPIED from ((\n" +
                     "  (( SELECT s1.ID, s1.FLIGHT_ID, s1.PLACE, s1.OCCUPIED from SEAT s2, SEAT s1 WHERE s1.OCCUPIED = FALSE and s1.ID = s2.ID-1 and s2.OCCUPIED = TRUE ))\n" +
@@ -142,8 +143,12 @@ public class Service {
                     "INNER JOIN FLIGHT ON IDS.FLIGHT_ID = FLIGHT.ID WHERE FLIGHT_ID = " + flight.getId() + "\n" +
                     "ORDER BY DATE, PLACE"));
             seats.add(new Seat(Integer.MAX_VALUE, flight.getPlane().getPlaces(), false, flight));
-            for (Seat seat : seats){
-                System.out.println(seat);
+            for (Iterator<Seat> iterator = seats.iterator(); iterator.hasNext(); ){
+                Seat prev = iterator.next();
+                Seat next = iterator.next();
+                if (next.getPlace() - prev.getPlace() >= needInRow){
+                    acceptable = flight;
+                }
             }
         }
         System.out.println(acceptable);

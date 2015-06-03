@@ -34,7 +34,7 @@ public class SeatDAO extends HibernateDaoSupport {
 
     @Transactional
     public List<Seat> ask(String s) {
-        return getSessionFactory().getCurrentSession().createSQLQuery(s).list();
+        return getSessionFactory().getCurrentSession().createSQLQuery(s).addEntity(Seat.class).list();
     }
 }
 
